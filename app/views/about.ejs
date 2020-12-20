@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <%- include('partialsViews/head') %>
+</head>
+
+<body class="dark">
+
+    <%- include('partialsViews/preloader') %>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <!-- .close -->
+                    <a href="./" class="page-close"><i class="tf-ion-close"></i></a>
+                    <!-- /.close -->
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 col-lg-7">
+                                <div class="page-title">
+                                    <h2>Naruto <span class="primary">API</span> </h2>
+                                    <p> É um software criado para fans do anime, onde o mesmo contempla desde o naruto clássico até o shippuden, reunindo todos os atributos físicos e pessoais de todos os personagens que foram listados nos databooks 1, 2 e 3.</p>
+                                    <p> O software foi dividido em duas partes, sendo elas:</p>
+                                    <p> <a href="/welcomeView" target="_blank"><span class="primary">Interface Web</span></a>: Foi desenvolvida para mostrar a diferença entre os atributos físicos e pessoais de cada personagem, para realizar esta ação basta escolher o personagem e verificar a diferença entre seus atributos de acordo com o tempo</p>
+                                    <p> <a href="/apiView" target="_blank"><span class="primary">API REST</span></a>: Foi desenvolvida para retornar os dados dos personagens de acordo com o comando passado.</p>
+                                </div>
+                            </div>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <%- include('partialsViews/footer') %>
+
+                        <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <%- include('partialsViews/scripts') %>
+</body>
+
+</html>
