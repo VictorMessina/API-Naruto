@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <%- include('partialsViews/head')%>
+</head>
+
+<body class="dark">
+
+    <%- include('partialsViews/preloader')%>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <!-- .close -->
+                        <a href="/" class="page-close"><i class="tf-ion-close"></i></a>
+                    <!-- /.close -->
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                                <div class="page-title text-center">
+                                    <h2>Todos <span class="primary">personagens</span> <span class="title-bg">Name</span></h2>
+                                </div>
+                            </div>
+
+                            <% for(var i = 0; i < allCharactersData.length; i++) { %>
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="about-author">
+                                        <figure class="author-thumb">
+                                            <img src="img/author.jpg" alt="">
+                                        </figure> <!-- /.author-bio -->
+                                        <div class="author-desc">
+
+                                            <p><b>Nome:</b> <%=allCharactersData[i].name%> </p>
+                                            <p><b>Nome original do país:</b> <%=allCharactersData[i].countryOriginalName%> </p>
+                                            <p><b>Nome traduzido do país:</b> <%=allCharactersData[i].countryTranslatedName%> </p>
+                                            <p><b>Nome original da vila:</b> <%=allCharactersData[i].villageOriginalName%> </p>
+                                            <p><b>Nome traduzido da vila:</b> <%=allCharactersData[i].villageTranslatedName%> </p>
+                                            <p><b>Numero de registro ninja:</b> <%=allCharactersData[i].ninjaRegisterNumber%> </p>
+                                            <p><b>Data de nascimento</b> <%=allCharactersData[i].birthdate%> </p>
+                                            <p><b>Tipo sanguineo:</b> <%=allCharactersData[i].bloodType%> </p>
+                                            <p><b>genero:</b> <%=allCharactersData[i].gender%> </p>
+                                            <p><b>Signo:</b> <%=allCharactersData[i].sign%></p>
+
+                                        </div>
+                                        <!-- /.author-desc -->
+                                    </div> <!-- /.about-author -->
+                                </div> <!-- /.col -->
+
+                            <% } %>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <%- include('partialsViews/footer')%>
+
+                        <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <%- include('partialsViews/scripts')%>
+</body>
+
+</html>
