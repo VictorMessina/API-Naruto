@@ -13,3 +13,7 @@ module.exports.aboutView = function (application, req, res) {
 module.exports.apiView = function (application, req, res) {
     res.render('api');
 };
+
+module.exports.allCharactersView = function (application, req, res, charactersData) {
+    res.render('allCharacters', { allCharactersData: charactersData });
+};
