@@ -18,6 +18,10 @@ module.exports = function(application) {
 		application.app.controllers.views.viewsController.apiView(application, req, res);
 	});
 
+	application.get('/allCharactersView', function(req, res) {
+		application.app.controllers.views.viewsController.allCharactersView(application, req, res);
+	});
+
 	/** -------------------------------------- Rotas de POST -------------------------------------- */
 
 };
