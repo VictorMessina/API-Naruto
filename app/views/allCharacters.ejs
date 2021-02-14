@@ -24,12 +24,14 @@
                                 </div>
                             </div>
 
+                            <%- include('partialsViews/errorsAlert')%>
+
                             <% for(var i = 0; i < allCharactersData.length; i++) { %>
 
                                 <div class="col-xs-12 col-md-6">
                                     <div class="about-author">
                                         <figure class="author-thumb">
-                                            <img src="img/author.jpg" alt="">
+                                            <img src="<%=allCharactersData[i].image%>" alt="">
                                         </figure> <!-- /.author-bio -->
                                         <div class="author-desc">
 
