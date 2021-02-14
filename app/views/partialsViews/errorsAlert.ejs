@@ -1,0 +1,11 @@
+<% if(errorsView.length > 0) { %>
+    <div class="col-xs-12 col-md-offset-1 col-md-12 col-lg-offset-2 col-lg-8">
+
+        <% for(var i = 0; i < errorsView.length; i++) { %>
+        
+            <h1> <%=errorsView[i].msg%> </h1>
+
+        <% } %>                    
+
+    </div>
+<% } %>
