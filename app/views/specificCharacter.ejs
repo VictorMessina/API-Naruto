@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <%- include('partialsViews/head')%>
+</head>
+
+<body class="dark">
+
+    <%- include('partialsViews/preloader')%>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <!-- .close -->
+                        <a href="/" class="page-close"><i class="tf-ion-close"></i></a>
+                    <!-- /.close -->
+
+                    <div class="container">
+                        <div class="row">
+
+                            <%- include('partialsViews/errorsAlert')%>
+
+                            <% for(var i=0; i < characterData.length; i++) { %>
+                            
+                                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                                    <div class="page-title text-center">
+                                        <h2><span class="primary"><%=characterData[i].name%></span> <span class="title-bg"></span></h2>
+                                        <p> 
+                                            É um ninja do <%=characterData[i].countryTranslatedName%> (<%=characterData[i].countryOriginalName%>) 
+                                            residente da <%=characterData[i].villageTranslatedName%> (<%=characterData[i].villageOriginalName%> ). 
+                                            Nasceu em <%=characterData[i].birthdate%>, seu signo é <%=characterData[i].sign%>, 
+                                            com tipo sanguineo <%=characterData[i].bloodType%> e de sexo <%=characterData[i].gender%>, 
+                                            registrado sob o número ninja <%=characterData[i].ninjaRegisterNumber%>.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="about-author">
+                                        <figure class="author-thumb">
+                                            <img src="<%=characterData[i].image%>" alt="">
+                                        </figure>
+                                    </div> <!-- /.about-author -->
+                                </div> <!-- /.col -->
+
+                                <% for(var j=0; j < characterData[i].databook.length; j++) { %>
+                                    <div class="col-xs-12 col-xs-3">
+                                        <div class="about-author">
+                                            <div class="author-desc">
+                                                <p><b>livro</b> <span class="primary"><%=characterData[i].databook[j].book%></span>:</p>
+                                                <p><b>Morto:</b> 
+                                                    <% if(characterData[i].databook[j].dead === false) { %>
+                                                        Não
+                                                    <% } else if (characterData[i].databook[j].dead === true) { %>  
+                                                        Sim
+                                                    <% } else { %>
+                                                        -
+                                                    <% } %>
+                                                </p>
+                                                <p><b>Idade:</b> <%=characterData[i].databook[j].age%></p>
+                                                <p><b>Altura:</b> <%=characterData[i].databook[j].height%> cm</p>
+                                                <p><b>Peso:</b> <%=characterData[i].databook[j].weight%> kg</p>
+                                                <p><b>Rank:</b> <%=characterData[i].databook[j].rank%></p>
+                                                <p><b>Potencial:</b> <%=characterData[i].databook[j].potential%>%</p>
+                                            </div>
+                                            <!-- /.author-desc -->
+                                        </div> <!-- /.about-author -->
+                                    </div> <!-- /.col -->
+                                <% } %>
+
+                            <% } %>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <br>
+                    <br>
+
+                    <%- include('partialsViews/footer')%>
+
+                        <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <%- include('partialsViews/scripts')%>
+</body>
+
+</html>
