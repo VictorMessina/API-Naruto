@@ -15,5 +15,23 @@ module.exports.apiView = function (application, req, res) {
 };
 
 module.exports.allCharactersView = function (application, req, res, charactersData) {
+
+    if (specificCharacterData === undefined) {
+        res.render('allCharacters', { errorsView: [{ msg: 'Não existe nenhum personagem no banco de dados' }], characterData: [] });
+        return;
+    }
+
     res.render('allCharacters', { allCharactersData: charactersData });
+    return;
+};
+
+module.exports.specificCharacter = function (application, req, res, specificCharacterData) {
+
+    if (specificCharacterData === undefined) {
+        res.render('specificCharacter', { errorsView: [{ msg: 'Não foi encontrado nenhum personagem com este nome, favor tentar novamente.' }], characterData: [] });
+        return;
+    }
+
+    res.render('specificCharacter', { errorsView: {}, characterData: specificCharacterData });
+    return;
 };
