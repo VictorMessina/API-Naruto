@@ -16,12 +16,12 @@ module.exports.apiView = function (application, req, res) {
 
 module.exports.allCharactersView = function (application, req, res, charactersData) {
 
-    if (specificCharacterData === undefined) {
-        res.render('allCharacters', { errorsView: [{ msg: 'Não existe nenhum personagem no banco de dados' }], characterData: [] });
+    if (charactersData === undefined) {
+        res.render('allCharacters', { errorsView: [{ msg: 'Não existe nenhum personagem no banco de dados' }], allCharactersData: [] });
         return;
     }
 
-    res.render('allCharacters', { allCharactersData: charactersData });
+    res.render('allCharacters', { errorsView: {}, allCharactersData: charactersData });
     return;
 };
 
