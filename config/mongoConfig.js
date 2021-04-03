@@ -13,7 +13,7 @@ const config = () => {
                 'JWTSecretKey': 'yourSecret', // necesario ser diferente do ambiente de prod e hml
                 'JWTExpires': '7d' // necesario ser diferente do ambiente de prod e hml
             }
-        
+
         case 'hml':
 
             return {
@@ -22,7 +22,7 @@ const config = () => {
                 'JWTsecretKey': 'yourSecret', // necesario ser diferente do ambiente de dev e prod
                 'JWTExpires': '7d' // necesario ser diferente do ambiente de dev e prod
             }
-        
+
         case 'prod':
 
             return {
