@@ -1,5 +1,4 @@
-var mongoose = require('../../config/mongoConnection');
-
+var mongoose = require('../../config/mongoConnection')
 const schema = mongoose.Schema;
 
 const characterSchema = new schema({
@@ -50,7 +49,7 @@ const characterSchema = new schema({
 				require: true
 			},
 			dead: {
-				type: Boolean,
+				type: String,
 				require: true
 			},
 			age: {
@@ -136,7 +135,7 @@ const characterSchema = new schema({
 		}
 	]
 });
-	
+
 const characterModel = mongoose.model('characters', characterSchema)
 
 function Character() {
