@@ -1,3 +1,5 @@
+const xlsx = require('xlsx');
+
 module.exports.addNewCharacter = async function (application, req, res) {
 
     var body = req.body;
@@ -29,7 +31,7 @@ module.exports.allCharacters = async function (application, req, res) {
         var sort = { name: 1 };
         var allCharacters = await characters.characterModel.find().sort(sort);
 
-        return res.send({result: allCharacters, totalCharacters: allCharacters.length});
+        return res.send({ result: allCharacters, totalCharacters: allCharacters.length });
     }
     catch (err) {
         console.log(err)
@@ -59,5 +61,131 @@ module.exports.findCharacterByName = async function (application, req, res) {
     catch (err) {
         console.log(err)
         return res.status(500).send({ error: 'Is not possible retrive the selected character, please try again later' });
+    };
+};
+
+module.exports.convertCharactersDataFromXLSX = async function (application, req, res) {
+
+    var workBook = xlsx.readFile('naruto_databooks.xlsx', { cellDates: true });
+
+    var workSheet = workBook.Sheets['Personagens'];
+
+    var data = xlsx.utils.sheet_to_json(workSheet);
+
+    return data;
+
+};
+
+module.exports.addCharactersFromXLSX = async function (application, req, res) {
+
+    var jsonData = await this.convertCharactersDataFromXLSX(application, req, res);
+
+    const character = new application.app.models.character();
+
+    try {
+
+        jsonData.forEach(element => {
+
+            var newCharacter = {
+                name: String(element.name),
+                countryOriginalName: String(element.countryOriginalName),
+                countryTranslatedName: String(element.countryTranslatedName),
+                villageOriginalName: String(element.villageOriginalName),
+                villageTranslatedName: String(element.villageTranslatedName),
+                ninjaRegisterNumber: String(element.ninjaRegisterNumber),
+                birthdate: String(element.birthdate),
+                bloodType: String(element.bloodType),
+                gender: String(element.gender),
+                sign: String(element.sign),
+                databook: [
+
+                    {
+                        book: String(element.databook_0_book),
+                        dead: String(element.databook_0_dead),
+                        age: String(element.databook_0_age),
+                        height: String(element.databook_0_height),
+                        weight: String(element.databook_0_weight),
+                        rank: String(element.databook_0_rank),
+                        ninjutsu: String(element.databook_0_ninjutsu),
+                        taijutsu: String(element.databook_0_taijutsu),
+                        genjutsu: String(element.databook_0_genjutsu),
+                        intelligence: String(element.databook_0_intelligence),
+                        strength: String(element.databook_0_strength),
+                        agilit: String(element.databook_0_agility),
+                        resistance: String(element.databook_0_resistance),
+                        seal: String(element.databook_0_seal),
+                        total: Number(element.databook_0_total),
+                        potential: Number(element.databook_0_percentagePotential),
+                        missionRankS: String(element.databook_0_missionRankS),
+                        missionRankA: String(element.databook_0_missionRankA),
+                        missionRankB: String(element.databook_0_missionRankB),
+                        missionRankC: String(element.databook_0_missionRankC),
+                        missionRankD: String(element.databook_0_missionRankD),
+                        totalMission: String(element.databook_0_totalMission)
+                    },
+                    {
+                        book: String(element.databook_1_book),
+                        dead: String(element.databook_1_dead),
+                        age: String(element.databook_1_age),
+                        height: String(element.databook_1_height),
+                        weight: String(element.databook_1_weight),
+                        rank: String(element.databook_1_rank),
+                        ninjutsu: String(element.databook_1_ninjutsu),
+                        taijutsu: String(element.databook_1_taijutsu),
+                        genjutsu: String(element.databook_1_genjutsu),
+                        intelligence: String(element.databook_1_intelligence),
+                        strength: String(element.databook_1_strength),
+                        agilit: String(element.databook_1_agility),
+                        resistance: String(element.databook_1_resistance),
+                        seal: String(element.databook_1_seal),
+                        total: Number(element.databook_1_total),
+                        potential: Number(element.databook_1_percentagePotential),
+                        missionRankS: String(element.databook_1_missionRankS),
+                        missionRankA: String(element.databook_1_missionRankA),
+                        missionRankB: String(element.databook_1_missionRankB),
+                        missionRankC: String(element.databook_1_missionRankC),
+                        missionRankD: String(element.databook_1_missionRankD),
+                        totalMission: String(element.databook_1_totalMission)
+                    },
+                    {
+                        book: String(element.databook_2_book),
+                        dead: String(element.databook_2_dead),
+                        age: String(element.databook_2_age),
+                        height: String(element.databook_2_height),
+                        weight: String(element.databook_2_weight),
+                        rank: String(element.databook_2_rank),
+                        ninjutsu: String(element.databook_2_ninjutsu),
+                        taijutsu: String(element.databook_2_taijutsu),
+                        genjutsu: String(element.databook_2_genjutsu),
+                        intelligence: String(element.databook_2_intelligence),
+                        strength: String(element.databook_2_strength),
+                        agilit: String(element.databook_2_agility),
+                        resistance: String(element.databook_2_resistance),
+                        seal: String(element.databook_2_seal),
+                        total: Number(element.databook_2_total),
+                        potential: Number(element.databook_2_percentagePotential),
+                        missionRankS: String(element.databook_2_missionRankS),
+                        missionRankA: String(element.databook_2_missionRankA),
+                        missionRankB: String(element.databook_2_missionRankB),
+                        missionRankC: String(element.databook_2_missionRankC),
+                        missionRankD: String(element.databook_2_missionRankD),
+                        totalMission: String(element.databook_2_totalMission)
+                    }
+                ]
+            }
+
+            character.characterModel.create(newCharacter, err => {
+                if (err) {
+                    return res.status(500).send({ error: 'registration failded ' + err });
+                };
+            });
+        });
+
+        return res.send({ message: "New characters registered successfully" });
+
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'registration failded ' + err })
     };
 };
