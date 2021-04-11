@@ -22,6 +22,10 @@ const characterSchema = new schema({
 		type: String,
 		require: true
 	},
+	imageURL:{
+		type: String,
+		require: true
+	},
 	ninjaRegisterNumber: {
 		type: String,
 		require: true
