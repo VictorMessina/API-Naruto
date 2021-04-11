@@ -92,6 +92,7 @@ module.exports.addCharactersFromXLSX = async function (application, req, res) {
                 countryTranslatedName: String(element.countryTranslatedName),
                 villageOriginalName: String(element.villageOriginalName),
                 villageTranslatedName: String(element.villageTranslatedName),
+                imageURL:String(element.imageURL),
                 ninjaRegisterNumber: String(element.ninjaRegisterNumber),
                 birthdate: String(element.birthdate),
                 bloodType: String(element.bloodType),
