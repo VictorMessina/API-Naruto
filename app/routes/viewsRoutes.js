@@ -22,6 +22,10 @@ module.exports = function (application) {
 		application.app.controllers.views.viewsController.allCharactersView(application, req, res);
 	});
 
+	application.get('/allVillagesView', function (req, res) {
+		application.app.controllers.views.viewsController.allVillagesView(application, req, res);
+	});
+
 	/** -------------------------------------- Rotas de POST -------------------------------------- */
 
 };
