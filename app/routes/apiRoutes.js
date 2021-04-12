@@ -10,9 +10,21 @@ module.exports = function (application) {
 		application.app.controllers.api.apiController.findCharacterByName(application, req, res);
 	});
 
+	application.get('/api/village/allVillages', function (req, res) {
+		application.app.controllers.api.apiController.allVillages(application, req, res);
+	});
+
+	application.get('/api/village/findVillageByName', function (req, res) {
+		application.app.controllers.api.apiController.findVillageByName(application, req, res);
+	});
+
 	/** -------------------------------------- Rotas de POST -------------------------------------- */
 
 	application.post('/api/characters/addCharactersFromXLSX', function (req, res) {
 		application.app.controllers.api.apiController.addCharactersFromXLSX(application, req, res);
+	});
+
+	application.post('/api/village/addVillagesFromXLSX', function (req, res) {
+		application.app.controllers.api.apiController.addVillagesFromXLSX(application, req, res);
 	});
 };
