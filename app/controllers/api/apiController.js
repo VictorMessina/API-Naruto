@@ -70,21 +70,21 @@ module.exports.convertCharactersDataFromXLSX = async function (application, req,
 
     var workSheet = workBook.Sheets['Personagens'];
 
-    var data = xlsx.utils.sheet_to_json(workSheet);
+    var charactersDataFromXLSX = xlsx.utils.sheet_to_json(workSheet);
 
-    return data;
+    return charactersDataFromXLSX;
 
 };
 
 module.exports.addCharactersFromXLSX = async function (application, req, res) {
 
-    var jsonData = await this.convertCharactersDataFromXLSX(application, req, res);
+    var charactersDataJSON = await this.convertCharactersDataFromXLSX(application, req, res);
 
     const character = new application.app.models.character();
 
     try {
 
-        jsonData.forEach(element => {
+        charactersDataJSON.forEach(element => {
 
             var newCharacter = {
                 name: String(element.name),
@@ -92,7 +92,7 @@ module.exports.addCharactersFromXLSX = async function (application, req, res) {
                 countryTranslatedName: String(element.countryTranslatedName),
                 villageOriginalName: String(element.villageOriginalName),
                 villageTranslatedName: String(element.villageTranslatedName),
-                imageURL:String(element.imageURL),
+                imageURL: String(element.imageURL),
                 ninjaRegisterNumber: String(element.ninjaRegisterNumber),
                 birthdate: String(element.birthdate),
                 bloodType: String(element.bloodType),
@@ -188,5 +188,94 @@ module.exports.addCharactersFromXLSX = async function (application, req, res) {
     catch (err) {
         console.log(err)
         return res.status(500).send({ error: 'registration failded ' + err })
+    };
+};
+
+module.exports.convertVillagesDataFromXLSX = async function (application, req, res) {
+
+    var workBook = xlsx.readFile('naruto_databooks.xlsx', { cellDates: true });
+
+    var workSheet = workBook.Sheets['Vilas'];
+
+    var villagesDataXLSX = xlsx.utils.sheet_to_json(workSheet);
+
+    return villagesDataXLSX;
+
+};
+
+module.exports.addVillagesFromXLSX = async function (application, req, res) {
+
+    var villagesDataJSON = await this.convertVillagesDataFromXLSX(application, req, res);
+
+    const village = new application.app.models.village();
+
+    try {
+
+        villagesDataJSON.forEach(element => {
+
+            var newVillage = {
+                name: String(element.name),
+                translatedName: String(element.translatedName),
+                villageChief: String(element.villageChief),
+                countryOriginalName: String(element.countryOriginalName),
+                countryTranslatedName: String(element.countryTranslatedName),
+                imageURL: String(element.imageURL)
+            }
+
+            village.villageModel.create(newVillage, err => {
+                if (err) {
+                    return res.status(500).send({ error: 'registration failded ' + err });
+                };
+            });
+        });
+
+        return res.send({ message: "New village registered successfully" });
+
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'registration failded ' + err })
+    };
+};
+
+module.exports.allVillages = async function (application, req, res) {
+
+    const village = new application.app.models.village();
+
+    try {
+
+        var sort = { name: 1 };
+        var allVillages = await village.villageModel.find().sort(sort);
+
+        return res.send({ result: allVillages, totalVillages: allVillages.length });
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'Is not possible retrive all characters, please try again later' });
+    };
+};
+
+module.exports.findVillageByName = async function (application, req, res) {
+
+    const villages = new application.app.models.village();
+
+    try {
+
+        // regex para nome do personagem com case sensitive{ $regex: '.*' + req.params.name + '.*' } }, 
+        // regex usado é sem case sensitive
+        var village = await villages.villageModel.find({ name: { $regex: new RegExp(req.query.characterName, "i") } });
+
+        if (village.length == 0) {
+
+            return res.status(404).send({ message: 'Village not found with the specific name, try another one' });
+
+        }
+
+        return res.send(village);
+
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'Is not possible retrive the selected village, please try again later' });
     };
 };
