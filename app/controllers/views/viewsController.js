@@ -35,3 +35,25 @@ module.exports.specificCharacter = function (application, req, res, specificChar
     res.render('specificCharacter', { errorsView: {}, characterData: specificCharacterData });
     return;
 };
+
+module.exports.allVillagesView = function (application, req, res, villagesData) {
+
+    if (villagesData === undefined) {
+        res.render('allVillages', { errorsView: [{ msg: 'Não existe nenhuma vila no banco de dados' }], allVillagesData: [] });
+        return;
+    }
+
+    res.render('allVillages', { errorsView: {}, allVillagesData: villagesData });
+    return;
+};
+
+module.exports.specificVillage = function (application, req, res, specificVillageData) {
+
+    if (specificVillageData === undefined) {
+        res.render('specificVillage', { errorsView: [{ msg: 'Não foi encontrado nenhuma vila com este nome, favor tentar novamente.' }], villageData: [] });
+        return;
+    }
+
+    res.render('specificVillage', { errorsView: {}, villageData: specificVillageData });
+    return;
+};

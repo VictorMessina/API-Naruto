@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <%- include('partialsViews/head')%>
+</head>
+
+<body class="dark">
+
+    <%- include('partialsViews/preloader')%>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <!-- .close -->
+                        <a href="/" class="page-close"><i class="tf-ion-close"></i></a>
+                    <!-- /.close -->
+
+                    <div class="container">
+                        <div class="row">
+
+                            <%- include('partialsViews/errorsAlert')%>
+
+                            <% for(var i=0; i < villageData.length; i++) { %>
+                            
+                                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                                    <div class="page-title text-center">
+                                        <h2><span class="primary"><%=villageData[i].name%></span> <span class="title-bg"></span></h2>
+                                        <p> 
+                                            É uma aldeia do <%=villageData[i].countryTranslatedName%> (<%=villageData[i].countryOriginalName%>),
+                                            onde seu/sua lider possui o titulo de <%=villageData[i].villageChief%>.
+                                            O nome traduzido da aldeia é <%=villageData[i].translatedName%>.
+                                        </p>
+
+                                        <br>
+                                        <br>
+
+                                        <figure>
+                                            <% if(villageData[i].imageURL === '-') { %>
+                                                <img src="../../../images/image-not-found.png" alt="" width="150" height="150">
+                                            <% } else { %>
+                                                <img src="<%=villageData[i].imageURL%>" alt="" width="500" height="200">
+                                            <% } %>
+                                        </figure>
+                                    </div>
+                                </div>
+
+                            <% } %>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <br>
+                    <br>
+
+                    <%- include('partialsViews/footer')%>
+
+                        <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <%- include('partialsViews/scripts')%>
+</body>
+
+</html>
