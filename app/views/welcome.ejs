@@ -20,8 +20,8 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-6 col-lg-7">
                                 <div class="page-title">
-                                    <h2>Naruto <span class="primary">API</span> </h2>
-                                    
+                                    <h2>API <span class="primary">Personagens</span> </h2>
+
                                     <form action="/characters/allCharacters">
                                         <input type="submit" value="Buscar todos os personagens">
                                     </form>
@@ -32,7 +32,21 @@
                                         <input type="text" name="characterName" placeholder="nome do personagem" />
                                         <input type="submit" value="Buscar personagem">
                                     </form>
+                                </div>
+
+                                <div class="page-title">
+                                    <h2>API <span class="primary">Vilas</span> </h2>
+
+                                    <form action="/villages/allVillages">
+                                        <input type="submit" value="Buscar todas as vilas">
+                                    </form>
                                     
+                                    <hr>
+                                    
+                                    <form action="/villages/findVillageByName">
+                                        <input type="text" name="villageName" placeholder="nome da vila" />
+                                        <input type="submit" value="Buscar vila">
+                                    </form>
                                 </div>
                             </div>
                         </div> <!-- /.row -->
