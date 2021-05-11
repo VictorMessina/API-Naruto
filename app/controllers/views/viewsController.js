@@ -57,3 +57,25 @@ module.exports.specificVillage = function (application, req, res, specificVillag
     res.render('specificVillage', { errorsView: {}, villageData: specificVillageData });
     return;
 };
+
+module.exports.allCreaturesView = function (application, req, res, creaturesData) {
+
+    if (creaturesData === undefined) {
+        res.render('allCreatures', { errorsView: [{ msg: 'Não existe nenhuma criatura no banco de dados' }], allCreaturesData: [] });
+        return;
+    }
+
+    res.render('allCreatures', { errorsView: {}, allCreaturesData: creaturesData });
+    return;
+};
+
+module.exports.specificCreatureView = function (application, req, res, specificCreatureData) {
+
+    if (specificCreatureData === undefined) {
+        res.render('specificCreature', { errorsView: [{ msg: 'Não foi encontrado nenhuma criatura com este nome, favor tentar novamente.' }], creatureData: [] });
+        return;
+    }
+
+    res.render('specificCreature', { errorsView: {}, creatureData: specificCreatureData });
+    return;
+};
