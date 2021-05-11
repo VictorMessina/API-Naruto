@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <%- include('partialsViews/head')%>
+</head>
+
+<body class="dark">
+
+    <%- include('partialsViews/preloader')%>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <!-- .close -->
+                        <a href="/" class="page-close"><i class="tf-ion-close"></i></a>
+                    <!-- /.close -->
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                                <div class="page-title text-center">
+                                    <h2>Todas as <span class="primary">criaturas</span> <span class="title-bg">Name</span></h2>
+                                </div>
+                            </div>
+
+                            <%- include('partialsViews/errorsAlert')%>
+
+                            <% for(var i = 0; i < allCreaturesData.length; i++) { %>
+
+                                <div class="col-xs-12 col-md-6">
+                                    <div class="about-author">
+                                        <figure class="author-thumb">
+                                            <% if(allCreaturesData[i].imageURL === '-') { %>
+                                                <img src="../../../images/image-not-found.png" alt="" width="150" height="150">
+                                            <% } else { %>
+                                                <img src="<%=allCreaturesData[i].imageURL%>" alt="" width="150" height="150">
+                                            <% } %>
+                                        </figure> <!-- /.author-bio -->
+                                        <div class="author-desc">
+
+                                            <p><b>Nome:</b> <%=allCreaturesData[i].name%> </p>
+                                            <p><b>Nome do titulo de lider da vila:</b> <%=allCreaturesData[i].villageChief%> </p>
+                                            <p><b>Nome original da vila:</b> <%=allCreaturesData[i].villageOriginalName%> </p>
+                                            <p><b>Nome traduzido da vila:</b> <%=allCreaturesData[i].villageTranslatedName%> </p>
+                                            <p><b>Apelido:</b> <%=allCreaturesData[i].nickname%> </p>
+                                            <p><b>Biju:</b> 
+                                                <% if(allCreaturesData[i].biju === 'false') { %>
+                                                    não
+                                                <% } else { %>  
+                                                    sim
+                                                <% } %>
+                                            </p>
+                                            
+                                        </div>
+                                        <!-- /.author-desc -->
+                                    </div> <!-- /.about-author -->
+                                </div> <!-- /.col -->
+
+                            <% } %>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <%- include('partialsViews/footer')%>
+
+                        <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <%- include('partialsViews/scripts')%>
+</body>
+
+</html>
