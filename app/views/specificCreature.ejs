@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <%- include('partialsViews/head')%>
+</head>
+
+<body class="dark">
+
+    <%- include('partialsViews/preloader')%>
+
+        <main class="site-wrapper">
+            <div class="pt-table">
+                <div class="pt-tablecell page-about relative">
+                    <!-- .close -->
+                        <a href="/" class="page-close"><i class="tf-ion-close"></i></a>
+                    <!-- /.close -->
+
+                    <div class="container">
+                        <div class="row">
+
+                            <%- include('partialsViews/errorsAlert')%>
+
+                            <% for(var i=0; i < creatureData.length; i++) { %>
+                            
+                                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                                    <div class="page-title text-center">
+                                        <h2><span class="primary"><%=creatureData[i].name%></span> <span class="title-bg"></span></h2>
+                                        <p> 
+                                            <%=creatureData[i].name%> é uma criatura que pertence a aldeia do <%=creatureData[i].villageTranslatedName%> (<%=creatureData[i].villageOriginalName%>),
+                                            
+                                            <% if(creatureData[i].nickname !== '-') { %>
+                                                também conhecida como  <%=creatureData[i].nickname%>,
+                                            <% } %>
+                                                                                        
+                                            que pertence a classe
+                                            
+                                            <% if(creatureData[i].biju === 'false') { %>
+                                                normal/invocação.
+                                            <% } else if (creatureData[i].biju === 'true') { %>  
+                                                biju (besta de calda).
+                                            <% } %>
+                                        </p>
+
+                                        <br>
+                                        <br>
+
+                                        <figure>
+                                            <% if(creatureData[i].imageURL === '-') { %>
+                                                <img src="../../../images/image-not-found.png" alt="" width="250" height="250">
+                                            <% } else { %>
+                                                <img src="<%=creatureData[i].imageURL%>" alt="" width="250" height="250">
+                                            <% } %>
+                                        </figure>
+                                    </div>
+                                </div>
+
+                            <% } %>
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+
+                    <br>
+                    <br>
+
+                    <%- include('partialsViews/footer')%>
+
+                        <!-- /.container -->
+                </div> <!-- /.pt-tablecell -->
+            </div> <!-- /.pt-table -->
+        </main> <!-- /.site-wrapper -->
+
+        <!-- ================================
+        JavaScript Libraries
+        ================================= -->
+        <%- include('partialsViews/scripts')%>
+</body>
+
+</html>

@@ -22,48 +22,6 @@ module.exports.addNewCharacter = async function (application, req, res) {
     };
 };
 
-module.exports.allCharacters = async function (application, req, res) {
-
-    const characters = new application.app.models.character();
-
-    try {
-
-        var sort = { name: 1 };
-        var allCharacters = await characters.characterModel.find().sort(sort);
-
-        return res.send({ result: allCharacters, totalCharacters: allCharacters.length });
-    }
-    catch (err) {
-        console.log(err)
-        return res.status(500).send({ error: 'Is not possible retrive all characters, please try again later' });
-    };
-};
-
-module.exports.findCharacterByName = async function (application, req, res) {
-
-    const characters = new application.app.models.character();
-
-    try {
-
-        // regex para nome do personagem com case sensitive{ $regex: '.*' + req.params.name + '.*' } }, 
-        // regex usado é sem case sensitive
-        var character = await characters.characterModel.find({ name: { $regex: new RegExp(req.query.characterName, "i") } });
-
-        if (character.length == 0) {
-
-            return res.status(404).send({ message: 'Character not found with the specific name, try another one' });
-
-        }
-
-        return res.send(character);
-
-    }
-    catch (err) {
-        console.log(err)
-        return res.status(500).send({ error: 'Is not possible retrive the selected character, please try again later' });
-    };
-};
-
 module.exports.convertCharactersDataFromXLSX = async function (application, req, res) {
 
     var workBook = xlsx.readFile('naruto_databooks.xlsx', { cellDates: true });
@@ -191,6 +149,48 @@ module.exports.addCharactersFromXLSX = async function (application, req, res) {
     };
 };
 
+module.exports.allCharacters = async function (application, req, res) {
+
+    const character = new application.app.models.character();
+
+    try {
+
+        var sort = { name: 1 };
+        var allCharacters = await character.characterModel.find().sort(sort);
+
+        return res.send({ result: allCharacters, totalCharacters: allCharacters.length });
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'Is not possible retrive all characters, please try again later' });
+    };
+};
+
+module.exports.findCharacterByName = async function (application, req, res) {
+
+    const character = new application.app.models.character();
+
+    try {
+
+        // regex para nome do personagem com case sensitive{ $regex: '.*' + req.params.name + '.*' } }, 
+        // regex usado é sem case sensitive
+        var queryCharacter = await character.characterModel.find({ name: { $regex: new RegExp(req.query.characterName, "i") } });
+
+        if (queryCharacter.length == 0) {
+
+            return res.status(404).send({ message: 'Character not found with the specific name, try another one' });
+
+        }
+
+        return res.send(queryCharacter);
+
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'Is not possible retrive the selected character, please try again later' });
+    };
+};
+
 module.exports.convertVillagesDataFromXLSX = async function (application, req, res) {
 
     var workBook = xlsx.readFile('naruto_databooks.xlsx', { cellDates: true });
@@ -229,7 +229,7 @@ module.exports.addVillagesFromXLSX = async function (application, req, res) {
             });
         });
 
-        return res.send({ message: "New village registered successfully" });
+        return res.send({ message: "New villages registered successfully" });
 
     }
     catch (err) {
@@ -251,31 +251,120 @@ module.exports.allVillages = async function (application, req, res) {
     }
     catch (err) {
         console.log(err)
-        return res.status(500).send({ error: 'Is not possible retrive all characters, please try again later' });
+        return res.status(500).send({ error: 'Is not possible retrive all villages, please try again later' });
     };
 };
 
 module.exports.findVillageByName = async function (application, req, res) {
 
-    const villages = new application.app.models.village();
+    const village = new application.app.models.village();
 
     try {
 
         // regex para nome do personagem com case sensitive{ $regex: '.*' + req.params.name + '.*' } }, 
         // regex usado é sem case sensitive
-        var village = await villages.villageModel.find({ name: { $regex: new RegExp(req.query.characterName, "i") } });
+        var queryVillage = await village.villageModel.find({ name: { $regex: new RegExp(req.query.villageName, "i") } });
 
-        if (village.length == 0) {
+        if (queryVillage.length == 0) {
 
             return res.status(404).send({ message: 'Village not found with the specific name, try another one' });
 
         }
 
-        return res.send(village);
+        return res.send(queryVillage);
 
     }
     catch (err) {
         console.log(err)
         return res.status(500).send({ error: 'Is not possible retrive the selected village, please try again later' });
+    };
+};
+
+module.exports.convertCreaturesDataFromXLSX = async function (application, req, res) {
+
+    var workBook = xlsx.readFile('naruto_databooks.xlsx', { cellDates: true });
+
+    var workSheet = workBook.Sheets['Criaturas'];
+
+    var creaturesDataXLSX = xlsx.utils.sheet_to_json(workSheet);
+
+    return creaturesDataXLSX;
+
+};
+
+module.exports.addCreaturesFromXLSX = async function (application, req, res) {
+
+    var creaturesDataJSON = await this.convertCreaturesDataFromXLSX(application, req, res);
+
+    const creature = new application.app.models.creature();
+
+    try {
+
+        creaturesDataJSON.forEach(element => {
+
+            var newCreature = {
+                name: String(element.name),
+                villageOriginalName: String(element.villageOriginalName),
+                villageTranslatedName: String(element.villageTranslatedName),
+                biju: String(element.biju),
+                nickname: String(element.nickname),
+                imageURL: String(element.imageURL)
+            }
+
+            creature.creatureModel.create(newCreature, err => {
+                if (err) {
+                    return res.status(500).send({ error: 'registration failded ' + err });
+                };
+            });
+        });
+
+        return res.send({ message: "New creatures registered successfully" });
+
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'registration failded ' + err })
+    };
+};
+
+module.exports.allCreatures = async function (application, req, res) {
+
+    const creature = new application.app.models.creature();
+
+    try {
+
+        var sort = { name: 1 };
+        var allCreatures = await creature.creatureModel.find().sort(sort);
+
+        return res.send({ result: allCreatures, totalCreatures: allCreatures.length });
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'Is not possible retrive all creatures, please try again later' });
+    };
+};
+
+module.exports.findCreatureByName = async function (application, req, res) {
+
+    const creature = new application.app.models.creature();
+
+    try {
+
+        // regex para nome do personagem com case sensitive{ $regex: '.*' + req.params.name + '.*' } }, 
+        // regex usado é sem case sensitive
+        var queryCreature = await creature.creatureModel.find({ name: { $regex: new RegExp(req.query.creatureName, "i") } });
+
+        if (queryCreature.length == 0) {
+
+            return res.status(404).send({ message: 'Creature not found with the specific name, try another one' });
+
+        }
+
+        return res.send(queryCreature);
+
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(500).send({ error: 'Is not possible retrive the selected creature, please try again later' });
     };
 };
