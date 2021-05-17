@@ -1,11 +1,11 @@
 // caso o programador nao criar/setar a variavel de ambiente NODE_ENV o node vai assumir que o ambiente é de desenvolvimento
 // para setar a variavel de ambiente usar o seguinte comando no terminal: set NODE_ENV=ambiente_que_deseja_usar
-const env = process.env.NODE_ENV || 'dev'
+const env = process.env.NODE_ENV || 'DEV'
 
 const config = () => {
 
     switch (env) {
-        case 'dev':
+        case 'DEV':
 
             return {
 
@@ -14,7 +14,7 @@ const config = () => {
                 'JWTExpires': '7d' // necesario ser diferente do ambiente de prod e hml
             }
 
-        case 'hml':
+        case 'HML':
 
             return {
 
@@ -23,7 +23,7 @@ const config = () => {
                 'JWTExpires': '7d' // necesario ser diferente do ambiente de dev e prod
             }
 
-        case 'prod':
+        case 'PROD':
 
             return {
 

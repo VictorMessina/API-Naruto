@@ -1,4 +1,6 @@
 const xlsx = require('xlsx');
+const logger = require('../../models/logger')
+const loggerPhrases = require('../../../config/logger/loggerPhrases')
 
 module.exports.addNewCharacter = async function (application, req, res) {
 
@@ -17,8 +19,8 @@ module.exports.addNewCharacter = async function (application, req, res) {
         return res.send({ message: "New character registered successfully" });
     }
     catch (error) {
-        console.log(error);
-        return res.status(500).send({ error: 'registration failded' })
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ADD_NEW_CHARACTER_ERROR + error);
+        return res.status(500).send({ error: 'registration failded' });
     };
 };
 
@@ -143,9 +145,9 @@ module.exports.addCharactersFromXLSX = async function (application, req, res) {
         return res.send({ message: "New characters registered successfully" });
 
     }
-    catch (err) {
-        console.log(err)
-        return res.status(500).send({ error: 'registration failded ' + err })
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ADD_CHARACTER_FROM_XLXS_ERROR + error);
+        return res.status(500).send({ error: 'registration failded' });
     };
 };
 
@@ -160,8 +162,8 @@ module.exports.allCharacters = async function (application, req, res) {
 
         return res.send({ result: allCharacters, totalCharacters: allCharacters.length });
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ALL_CHARACTERS_ERROR + error);
         return res.status(500).send({ error: 'Is not possible retrive all characters, please try again later' });
     };
 };
@@ -185,8 +187,8 @@ module.exports.findCharacterByName = async function (application, req, res) {
         return res.send(queryCharacter);
 
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_FIND_CHARACTER_BY_NAME_ERROR + error);
         return res.status(500).send({ error: 'Is not possible retrive the selected character, please try again later' });
     };
 };
@@ -232,9 +234,9 @@ module.exports.addVillagesFromXLSX = async function (application, req, res) {
         return res.send({ message: "New villages registered successfully" });
 
     }
-    catch (err) {
-        console.log(err)
-        return res.status(500).send({ error: 'registration failded ' + err })
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ADD_VILLAGES_FROM_XLSX_ERROR + error);
+        return res.status(500).send({ error: 'registration failded' });
     };
 };
 
@@ -249,8 +251,8 @@ module.exports.allVillages = async function (application, req, res) {
 
         return res.send({ result: allVillages, totalVillages: allVillages.length });
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ALL_VILLAGES_ERROR + error);
         return res.status(500).send({ error: 'Is not possible retrive all villages, please try again later' });
     };
 };
@@ -274,8 +276,8 @@ module.exports.findVillageByName = async function (application, req, res) {
         return res.send(queryVillage);
 
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_FIND_VALLAGE_BY_NAME_ERROR + error);
         return res.status(500).send({ error: 'Is not possible retrive the selected village, please try again later' });
     };
 };
@@ -321,9 +323,9 @@ module.exports.addCreaturesFromXLSX = async function (application, req, res) {
         return res.send({ message: "New creatures registered successfully" });
 
     }
-    catch (err) {
-        console.log(err)
-        return res.status(500).send({ error: 'registration failded ' + err })
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ADD_CREATURES_FROM_XLSX_ERROR + error);
+        return res.status(500).send({ error: 'registration failded' });
     };
 };
 
@@ -338,8 +340,8 @@ module.exports.allCreatures = async function (application, req, res) {
 
         return res.send({ result: allCreatures, totalCreatures: allCreatures.length });
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_ALL_CREATURES_ERROR + error);
         return res.status(500).send({ error: 'Is not possible retrive all creatures, please try again later' });
     };
 };
@@ -363,8 +365,8 @@ module.exports.findCreatureByName = async function (application, req, res) {
         return res.send(queryCreature);
 
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+        logger.makeLog(loggerPhrases.API_CONTROLLER_FIND_CREATURES_BY_NAME_ERROR + error);
         return res.status(500).send({ error: 'Is not possible retrive the selected creature, please try again later' });
     };
 };

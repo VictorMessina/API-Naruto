@@ -1,4 +1,4 @@
-var mongoose = require('../../config/mongoConnection')
+var mongoose = require('../../config/mongo/mongoConnection')
 const schema = mongoose.Schema;
 
 const characterSchema = new schema({
