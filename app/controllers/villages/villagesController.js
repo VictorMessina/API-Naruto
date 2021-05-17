@@ -1,4 +1,6 @@
 const viewsController = require('../views/viewsController');
+const logger = require('../../models/logger');
+const loggerPhrases = require('../../../config/logger/loggerPhrases');
 
 module.exports.allVillages = async function (application, req, res) {
 
@@ -20,8 +22,10 @@ module.exports.allVillages = async function (application, req, res) {
 
 
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+
+        logger.makeLog(loggerPhrases.VILLAGES_CONTROLLER_ALL_CREATURES_ERROR + error);
+
     };
 };
 
@@ -45,8 +49,9 @@ module.exports.findVillageByName = async function (application, req, res) {
         return;
 
     }
-    catch (err) {
-        console.log(err)
-        return res.status(500).send({ error: 'Is not possible retrive the selected village, please try again later' });
+    catch (error) {
+
+        logger.makeLog(loggerPhrases.VILLAGES_CONTROLLER_FIND_CREATURES_BY_NAME_ERROR + error);
+
     };
 };
